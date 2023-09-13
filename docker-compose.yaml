@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  # booking-api:
+  #   image: gftest-booking-api
+  #   build: ./booking-api
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - rabbitmq
+  #   expose:
+  #     - 8080
+
+  # booking-worker:
+  #   image: gftest-booking-worker
+  #   build: ./booking-worker
+  #   ports:
+  #     - 8081:8081
+  #   depends_on:
+  #     - rabbitmq
+  #     - local-mongodb
+  #   expose:
+  #     - 8081
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    network_mode: bridge
+
+  local-mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    network_mode: bridge
+
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass red
+    volumes:
+      - cache:/data
+volumes:
+  cache:
+    driver: local
+
