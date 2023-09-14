@@ -1,30 +1,24 @@
 package com.pocjogadores.api.model;
 
+import com.fasterxml.jackson.annotation.JsonClassDescription;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document("jogador")
+@JsonClassDescription("jogador")
 public class Jogador {
 
-
-    public Jogador(String id, String nome, Integer idade, String endereco, Integer autoAvaliacao) {
-        super();
-        this.id = id;
-        this.nome = nome;
-        this.idade = idade;
-        this.endereco = endereco;
-        this.autoAvaliacao = autoAvaliacao;
-    }
-
-    @Id
+    @MongoId
     private String id;
-
+    @JsonProperty("nome")
     private String nome;
-
+    @JsonProperty("idade")
     private Integer idade;
-
+    @JsonProperty("endereco")
     private String endereco;
-
+    @JsonProperty("auto_avaliacao")
     private Integer autoAvaliacao;
 
 
